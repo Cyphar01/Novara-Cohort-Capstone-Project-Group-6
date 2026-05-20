@@ -1,4 +1,4 @@
-// corrected the api.js file to call on both the contact endpoint and planet api
+// corrected the api.js file to call on both the contact form endpoint and planet api
 
 const PLANETS_API = "https://anurella.github.io/json/planets.json";
 const FORM_ENDPOINT = "https://whitebricks.com/tsacademy.php";
