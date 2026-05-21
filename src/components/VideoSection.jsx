@@ -1,4 +1,3 @@
-
 function VideoSection() {
   return (
     <section className="video-section">
