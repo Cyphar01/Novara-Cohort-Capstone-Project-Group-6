@@ -7,11 +7,11 @@
   border: 2px solid transparent;
   transition: border-color 0.3s;
   margin-bottom: 24px;
-
-  &:hover {
+/*The nested selector & is not a valid css syntax but for sccs so it has been removed*/
+  .counter:hover {
     border-color: var(--accent-border);
   }
-  &:focus-visible {
+  .counter:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
@@ -588,6 +588,33 @@ td {
   cursor: pointer;
   margin-top: 20px;
 }
+/*animation for success message*/
+.success-message {
+  width: 100%;
+  padding: 50px 30px;
+  border-radius: 12px;
+  background: #edf3ff;
+  border: 1px solid #d8e4ff;
+  animation: fadeIn 0.4s ease;
+}
+
+.success-message p {
+  color: #22344d;
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* FOOTER */
 
@@ -781,6 +808,30 @@ td {
     width: 100%;
   }
 
+  .success-message {
+   width: 100%;
+  padding: 50px 30px;
+  border-radius: 12px;
+  background: #edf3ff;
+  border: 1px solid #d8e4ff;
+  animation: fadeIn 0.5s ease;
+}
+
+.success-message p {
+  color: white;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
   /* FOOTER COLUMN */
 /* MOBILE */
 
