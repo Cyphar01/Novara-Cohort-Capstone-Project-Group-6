@@ -22,3 +22,5 @@ alt="Earth"
 </section>
 );
 }
+
+export default Hero
