@@ -16,7 +16,7 @@ function Footer() {
       <div className="footer-bottom">
         <div className="footer-left">
           <p>©2026 Design by Amaka & Ifeoma A.</p>
-          <p>Built by Novara Cohort Group 6. All rights reserved</p>
+          <p>Built by Novara Cohort <a href="https://github.com/Cyphar01/Novara-Cohort-Capstone-Project-Group-6">Group 6</a>. All rights reserved</p>
         </div>
 
         <div className="footer-right">
