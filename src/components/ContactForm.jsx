@@ -1,125 +1,98 @@
 import { useState } from "react";
-import { submitContactForm } from "../services/api";
 
-export default function Contact() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+function ContactForm() {
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const form = e.target;
+
+    const formData = new FormData(form);
+
     try {
-      await submitContactForm(formData);
-
-      setSubmitted(true);
-
-      setFormData({
-        firstName: "",
-        email: "",
-        phone: "",
-        message: "",
+      await fetch("https://whitebricks.com/tsacademy.php", {
+        method: "POST",
+        body: formData,
       });
 
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 5000);
+      setMessage("Form submitted successfully!");
+      form.reset();
     } catch (error) {
-      console.error(error);
-      alert("Submission failed");
+      setMessage("Something went wrong.");
     }
   };
 
   return (
-    <section className="contact-section" id="contact">
+    <section className="contact-section" id="contact-section">
       <h2>Have Questions About Planetary Science?</h2>
+      <p>Interested in learning more about space,astronomy or how planetary data is collected and analyzed?<br />
+      Reach out and we will get back to you.</p>
 
-      <p>
-        If you have questions about space, technology, or planetary data,
-        reach out and we’ll get back to you.
-      </p>
+      <form onSubmit={handleSubmit} className="contact-form">
 
-      {submitted ? (
-        <div className="success-message">
-          <h3>Message Sent Successfully 🚀</h3>
-          <p>Thanks for contacting us.</p>
-        </div>
-      ) : (
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>
-              First Name <span className="red-star">*</span>
-            </label>
+  <div className="form-group">
+    <label htmlFor="fullname">
+      Full Name<span className="red-star">*</span>
+    </label>
 
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              required
-              value={formData.firstName}
-              onChange={handleChange}
-            />
-          </div>
+    <input
+      type="text"
+      name="fullname"
+      placeholder="Full name"
+      required
+    />
+  </div>
 
-          <div className="form-group">
-            <label>
-              Email <span className="red-star">*</span>
-            </label>
+  <div className="form-group">
+    <label htmlFor="email">
+      Email<span className="red-star">*</span>
+    </label>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="example@domain.com"
-              required
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
+    <input
+      type="email"
+      name="email"
+      placeholder="example@example.com"
+      required
+    />
+  </div>
 
-          <div className="form-group">
-            <label>
-              Phone Number <span className="red-star">*</span>
-            </label>
+  <div className="form-group">
+    <label htmlFor="phone">
+      Phone Number<span className="red-star">*</span>
+    </label>
 
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Enter phone number"
-              required
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </div>
+    <input
+      type="tel"
+      name="phone"
+      placeholder="Please enter a valid phone number."
+      pattern="[0-9]{11}"
+      required
+    />
+  </div>
 
-          <div className="form-group">
-            <label>
-              Message <span className="red-star">*</span>
-            </label>
+  <div className="form-group">
+    <label htmlFor="message">
+      Message<span className="red-star">*</span>
+    </label>
 
-            <textarea
-              name="message"
-              placeholder="Write message..."
-              required
-              value={formData.message}
-              onChange={handleChange}
-            />
-          </div>
+    <textarea
+      name="message"
+      placeholder="Enter your message"
+      maxLength="100"
+      required
+    ></textarea>
 
-          <button type="submit">Submit →</button>
-        </form>
-      )}
+    <small>100 characters</small>
+  </div>
+
+  <button type="submit">Submit &nbsp;&nbsp;&gt;</button>
+
+</form>
+
+      {message && <p className="success-message">{message}</p>}
     </section>
   );
 }
+
+export default ContactForm;

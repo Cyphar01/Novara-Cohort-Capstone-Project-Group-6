@@ -598,13 +598,6 @@ td {
   animation: fadeIn 0.4s ease;
 }
 
-.success-message h3 {
-  color: #1f4fb2;
-  font-size: 28px;
-  margin-bottom: 14px;
-  font-weight: 700;
-}
-
 .success-message p {
   color: #22344d;
   line-height: 1.7;
@@ -816,18 +809,12 @@ td {
   }
 
   .success-message {
-  width: 100%;
-  padding: 60px 20px;
-  border-radius: 16px;
-  background: #1e5eff;
-  color: white;
-  text-align: center;
+   width: 100%;
+  padding: 50px 30px;
+  border-radius: 12px;
+  background: #edf3ff;
+  border: 1px solid #d8e4ff;
   animation: fadeIn 0.5s ease;
-}
-
-.success-message h3 {
-  font-size: 28px;
-  margin-bottom: 10px;
 }
 
 .success-message p {
