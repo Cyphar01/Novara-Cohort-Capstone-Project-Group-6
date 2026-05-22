@@ -1,28 +1,36 @@
-exports.handler = async (event) => { 
-   try { 
-     const body = JSON.parse(event.body); 
- 
-     const response = await fetch("https://whitebricks.com/tsacademy.php", { 
-       method: "POST", 
-       headers: { 
-         "Content-Type": "application/json", 
-       }, 
-       body: JSON.stringify(body), 
-     }); 
- 
-     const data = await response.json(); 
- 
-     return { 
-       statusCode: 200, 
-       body: JSON.stringify(data), 
-     }; 
-   } catch (error) { 
-     return { 
-       statusCode: 500, 
-       body: JSON.stringify({ 
-         message: "Something went wrong", 
-         error: error.message, 
-       }), 
-     }; 
-   } 
- }; 
+export async function handler(event) {
+  try {
+    const body = JSON.parse(event.body);
+
+    const response = await fetch("https://whitebricks.com/tsacademy.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    // get raw response first
+    const text = await response.text();
+
+    console.log("API RESPONSE:", text);
+
+    return {
+      statusCode: response.status,
+      body: JSON.stringify({
+        success: true,
+        data: text,
+      }),
+    };
+  } catch (error) {
+    console.error("NETLIFY FUNCTION ERROR:", error);
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        success: false,
+        error: error.message,
+      }),
+    };
+  }
+}
