@@ -115,7 +115,7 @@ function ContactForm() {
             <small>100 characters</small>
           </div>
 
-          <button type="submit">Submit &nbsp;&nbsp;&gt;</button>
+          <button type="submit">Submit</button>
         </form>
       )}
     </section>
