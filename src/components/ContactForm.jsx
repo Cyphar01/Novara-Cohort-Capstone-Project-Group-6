@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { submitContactForm } from "../services/api";
 
 function ContactForm() {
   const [message, setMessage] = useState("");
@@ -7,15 +8,11 @@ function ContactForm() {
     e.preventDefault();
 
     const form = e.target;
-
     const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
     try {
-      await fetch("https://whitebricks.com/tsacademy.php", {
-        method: "POST",
-        body: formData,
-      });
-
+      await submitContactForm(data);
       setMessage("Form submitted successfully!");
       form.reset();
     } catch (error) {
