@@ -121,12 +121,75 @@ Nnamdi
 
 2️⃣ Contact Form Submission Error
 
-The contact form returned:
-Something went wrong
+The contact form was always returning:
+“Something went wrong”
+CORS errors during form submission
 
-Fix
+The issue happened because the frontend React application was trying to call the external form API directly from the browser.
 
-The form submission logic was corrected and successfully connected.
+Browsers block many external requests for security reasons using a policy called CORS (Cross-Origin Resource Sharing).
+
+Because the external API did not allow requests directly from our frontend domain, the request failed before reaching the API successfully.
+
+Why We Chose the Netlify Function Solution
+Since the project is deployed on Netlify, we used a Netlify Serverless Function as a middle layer.
+
+Instead of:
+
+Frontend → External API ❌
+
+We changed it to:
+
+Frontend → Netlify Function → External API ✅
+
+This works because:
+
+The browser only talks to our own Netlify backend
+Netlify server functions do not suffer from browser CORS restrictions
+the serverless function performs a secure server-to-server request
+This is cleaner, safer, and production-friendly.
+
+How We Implemented the Fix
+1. Created a Netlify Function
+We created:
+
+netlify/functions/submit.js
+The function:
+
+receives form data from the frontend
+forwards the data to the external API
+returns success/error responses back to the frontend
+
+2. Fixed the Module Error
+Initially we got this warning:
+
+CommonJS "exports" variable is treated as a global variable
+This happened because the project uses:
+
+"type": "module"
+inside package.json.
+
+So Netlify expected ES Modules syntax instead of CommonJS syntax.
+
+We fixed it by changing:
+
+exports.handler = async ()
+to:
+
+export async function handler()
+
+3. Fixed the JSON Parse Error
+We later encountered:
+
+SyntaxError: Unexpected end of JSON input
+This happened because the function tried to parse an empty response as JSON.
+
+We fixed it by:
+
+checking the response properly
+handling errors safely
+avoiding invalid JSON parsing
+After this, the form submission started working correctly.
 
 Resolved by:
 
@@ -138,24 +201,29 @@ Ian
 
 git clone https://github.com/Cyphar01/Novara-Cohort-Group-6-Capstone-Project.git
 
-2️⃣ Navigate Into the Project Folder:
+2️⃣ Pull Latest Changes:
 
-cd Novara-Cohort-Group-6-Capstone-Project
+git pull
 
-3️⃣ Install Dependencies:
+3️⃣ Switch To Your Branch:
+
+git checkout your-branch-name
+
+4️⃣  Install Dependencies:
 
 npm install
 
-4️⃣ Start the Development Server:
+5️⃣ Run Netlify Dev Server:
 
-npm run dev
+npx netlify dev
 
-5️⃣ Open in Browser:
+This is important because:
 
-Visit:
+regular npm run dev only runs Vite
+Netlify Functions require the Netlify development server
+The app will usually run on:
 
-http://localhost:5173
-
+http://localhost:8888
 
 
 ## Project Objective
