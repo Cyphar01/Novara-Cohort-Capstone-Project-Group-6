@@ -593,7 +593,7 @@ td {
 /*animation for success message*/
 .success-message {
   width: 100%;
-  padding: 50px 30px;
+  padding: 50px 50px;
   border-radius: 12px;
   background: #edf3ff;
   border: 1px solid #d8e4ff;
@@ -605,7 +605,33 @@ td {
   line-height: 1.7;
   max-width: 500px;
 }
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 250px;
+}
 
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #d8e4ff;
+  border-top: 5px solid #1e5eff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
